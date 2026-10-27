@@ -26,7 +26,7 @@ test("overlapping and repeated inputs do not duplicate discovered files", (t) =>
   fs.writeFileSync(path.join(root, "src", "a.css"), ".a {}");
   fs.writeFileSync(path.join(root, "src", "b.html"), "<p>ok</p>");
   const result = discover(["src", "src/a.css", "src"], { ...DEFAULT_CONFIG }, root);
-  assert.deepEqual(result.files.map((file) => file.relative), ["src/a.css", "src/b.html"]);
+  assert.deepEqual(result.files.map((file) => file.relative), [path.join("src", "a.css"), path.join("src", "b.html")]);
 });
 
 test("a distinct supported file beyond maxFiles still fails", (t) => {
