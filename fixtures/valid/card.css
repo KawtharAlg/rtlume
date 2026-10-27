@@ -1,0 +1,6 @@
+.card {
+  margin-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  inset-inline-start: 0;
+  border-start-start-radius: 0.5rem;
+}

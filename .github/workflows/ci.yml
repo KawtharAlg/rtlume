@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [20, 22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      - run: npm run validate:plugin
+      - run: node ./bin/rtlume.js scan examples --config rtlume.config.example.json
+      - run: node ./scripts/check-demo.mjs
+      - run: npm pack --dry-run
+
+  release:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const { execFileSync } = require('node:child_process');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            if (!/^\d+\.\d+\.\d+-rc\.\d+$/.test(pkg.version)) {
+              core.info('Automatic publishing is limited to release candidates.');
+              return;
+            }
+            const { owner, repo } = context.repo;
+            const head = await github.rest.repos.getBranch({ owner, repo, branch: 'main' });
+            if (head.data.commit.sha !== context.sha) {
+              core.info('A newer commit is on main. No release was created.');
+              return;
+            }
+            const tag = `v${pkg.version}`;
+            try {
+              await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              core.info(`${tag} is already published.`);
+              return;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            const archive = execFileSync('git', ['archive', '--format=zip', '--prefix=rtlume/', context.sha], { maxBuffer: 10 * 1024 * 1024 });
+            const release = await github.rest.repos.createRelease({
+              owner, repo, tag_name: tag, target_commitish: context.sha,
+              name: `RTLume ${pkg.version}`, prerelease: true,
+              body: fs.readFileSync('RELEASE_NOTES.md', 'utf8')
+            });
+            await github.rest.repos.uploadReleaseAsset({
+              owner, repo, release_id: release.data.id,
+              name: `rtlume-${pkg.version}.zip`, data: archive,
+              headers: { 'content-type': 'application/zip', 'content-length': archive.length }
+            });
+            core.info(`Published ${release.data.html_url}`);

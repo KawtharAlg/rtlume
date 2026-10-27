@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/KawtharAlg/rtlume/main/schemas/config.schema.json",
+  "title": "RTLume configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "rtlLocales": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "failOn": { "enum": ["error", "warning", "info", "never"] },
+    "maxFileBytes": { "type": "integer", "minimum": 1 },
+    "maxFiles": { "type": "integer", "minimum": 1 },
+    "excludeDirs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "severity": {
+      "type": "object",
+      "additionalProperties": { "enum": ["error", "warning", "info"] }
+    },
+    "ownership": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pattern", "owner"],
+        "additionalProperties": false,
+        "properties": {
+          "pattern": { "type": "string" },
+          "owner": { "type": "string" }
+        }
+      }
+    },
+    "locales": {
+      "type": ["object", "null"],
+      "required": ["source", "targets"],
+      "properties": {
+        "source": { "$ref": "#/$defs/localeFile" },
+        "targets": { "type": "array", "items": { "$ref": "#/$defs/localeFile" } }
+      }
+    }
+  },
+  "$defs": {
+    "localeFile": {
+      "type": "object",
+      "required": ["locale", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "locale": { "type": "string" },
+        "path": { "type": "string" }
+      }
+    }
+  }
+}

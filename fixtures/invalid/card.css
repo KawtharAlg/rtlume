@@ -1,0 +1,8 @@
+.card {
+  margin-left: 1rem;
+  right: 0;
+  border-top-left-radius: 0.5rem;
+}
+
+/* rtlume-disable-next-line CSS001 */
+.badge { padding-left: 4px; }

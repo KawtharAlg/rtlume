@@ -9,8 +9,8 @@ RTLume يكشف مشاكل RTL والترجمة قبل وصولها إلى ال�
 يتطلب Node.js 20 أو أحدث:
 
 ```bash
-node ./bin/rtlume.js scan examples --config rtlume.config.example.json
-node --test
+npm run check:examples
+npm test
 ```
 
 يدعم الإخراج النصي وJSON وSARIF. النتيجة المصنفة `certain` قابلة للإثبات من الكود أو السياسة. `probable` تحتاج تأكيد السياق. `review` لا يجوز اعتبارها خطأ مؤكداً قبل مراجعة بشرية ببيانات عربية حقيقية.

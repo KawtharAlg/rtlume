@@ -1,0 +1,11 @@
+{
+  "name": "rtlume",
+  "displayName": "RTLume",
+  "version": "0.1.0-rc.1",
+  "description": "Find RTL, localization, and design-token issues without uploading repository content.",
+  "author": {
+    "name": "Kawthar Algaroos",
+    "url": "https://github.com/KawtharAlg"
+  },
+  "license": "MIT"
+}

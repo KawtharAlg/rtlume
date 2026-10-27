@@ -1,0 +1,5 @@
+{
+  "welcome": "Welcome, {name}",
+  "balance": "Balance: {amount}",
+  "transactions": "{count, plural, one {# transaction} other {# transactions}}"
+}

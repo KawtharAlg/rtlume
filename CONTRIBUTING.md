@@ -24,8 +24,8 @@ A new rule must include:
 Run the full suite before opening a pull request:
 
 ```bash
-node --test
-node ./bin/rtlume.js scan examples --config rtlume.config.example.json
+npm test
+npm run check:examples
 ```
 
 Pull requests should explain the user problem, the chosen scope, tests, security impact, and any change to machine-readable output. User-facing changes need before/after evidence when appropriate.

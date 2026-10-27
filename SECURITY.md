@@ -6,7 +6,7 @@ Only the newest release candidate is supported during the pre-release phase.
 
 ## Report a vulnerability
 
-Do not open a public issue for a vulnerability that could expose source code, credentials, user data, or unsafe execution. The private reporting channel will be added before the repository becomes public. Until then, keep the report private and include the affected version, a minimal reproduction, impact, and suggested mitigation.
+Keep vulnerability details private. If GitHub shows a private reporting option on the Security tab, use it and include the affected version, a minimal reproduction, and the impact. If that option is unavailable, open an issue asking the maintainer to arrange a private channel, without including the vulnerability or personal data. A dedicated reporting channel is not yet configured.
 
 ## Security properties
 

@@ -1,0 +1,1 @@
+Run RTLume on the user-authorized repository paths, read its JSON output, and return a short remediation plan ordered by severity and confidence. Do not claim visual, linguistic, accessibility, or regulatory compliance. Apply no edits unless the user asked for them. After any requested edits, rerun the same scan and report the exact change in findings.

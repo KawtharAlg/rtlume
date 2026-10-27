@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-rc.1 — 2026-10-27
+## 0.1.0-rc.1 (2026-10-27)
 
 - Added a dependency-free Node.js CLI.
 - Added CSS, document, locale, and design-token analyzers.

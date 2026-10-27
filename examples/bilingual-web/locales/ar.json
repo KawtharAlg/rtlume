@@ -1,0 +1,5 @@
+{
+  "welcome": "مرحباً، {name}",
+  "balance": "الرصيد: {amount}",
+  "transactions": "{count, plural, zero {لا توجد عمليات} one {عملية واحدة} two {عمليتان} few {# عمليات} many {# عملية} other {# عملية}}"
+}

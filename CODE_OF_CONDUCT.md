@@ -6,4 +6,4 @@ Be direct about code and evidence without attacking the person. Respect differen
 
 Unacceptable behavior includes harassment, threats, discriminatory language, sexualized attention, deliberate disruption, and retaliation against someone who reports a concern.
 
-Report conduct concerns privately to the maintainer through the security or contact channel published with the public repository. The maintainer may remove content or restrict participation to protect contributors. Until that channel exists, do not place sensitive reports in a public issue.
+For a conduct concern, open an issue asking the maintainer to arrange a private conversation. Leave names, evidence, and sensitive details out of the public issue. A dedicated reporting channel is not yet configured. The maintainer may remove content or restrict participation to protect contributors.

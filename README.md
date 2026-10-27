@@ -14,6 +14,8 @@ A CSS linter will not notice a missing `{amount}` placeholder. A locale checker 
 
 `0.1.0-rc.1` is the first public release candidate. The CLI and fixtures run locally. There is no npm package or Claude Directory listing yet.
 
+See [Testing](TESTING.md) for the regression suite and [GitHub Actions](https://github.com/KawtharAlg/rtlume/actions) for the current build result.
+
 ## Requirements
 
 - Node.js 20 or newer
@@ -23,10 +25,10 @@ A CSS linter will not notice a missing `{amount}` placeholder. A locale checker 
 ## Run from the repository
 
 ```bash
-node ./bin/rtlume.js scan examples --config rtlume.config.example.json
-node ./bin/rtlume.js scan fixtures/invalid --format json
-node ./bin/rtlume.js scan fixtures/invalid --format sarif --output reports/invalid.sarif.json
-node --test
+npm run check:examples
+npm run demo:json
+npm run demo:sarif
+npm test
 ```
 
 Exit codes are stable: `0` passes the configured threshold, `1` means findings exceeded it, `2` indicates invalid usage or configuration, `3` means the scan could not produce a reliable result, and `4` is an internal error.
@@ -35,14 +37,7 @@ Exit codes are stable: `0` passes the configured threshold, `1` means findings e
 
 Start from [`rtlume.config.example.json`](rtlume.config.example.json). The example maps design-token files to `design-system` and locale files to `localization`. A finding includes the owner in text, JSON, and SARIF output.
 
-Suppress a contextual CSS finding only when the physical behavior is intentional. A reason is required:
-
-```css
-/* rtlume-disable-next-line CSS001 -- legal badge is fixed to the physical viewport edge */
-left: 0;
-```
-
-Suppressions without a reason fail under `CFG001`.
+Suppress a CSS finding only when the physical behavior is intentional. The scanner requires a reason and reports `CFG001` when it is missing. The CSS tests include examples of accepted and rejected suppressions.
 
 ## Rule families
 
@@ -53,6 +48,10 @@ Suppressions without a reason fail under `CFG001`.
 | `I18N` | Key parity, placeholders, and Arabic ICU plural branches | Catalog structure |
 | `TOK` | Directional token names and alias integrity | Token structure |
 | `CFG` | Auditable suppressions | Policy integrity |
+
+These are bounded source checks. Complex CSS and JSX expressions and unsupported ICU syntax need manual review. The Arabic plural rule suggests reviewing all six plural categories; it does not treat an omitted category as an invalid ICU message.
+
+Locale checks apply only to target catalogs included in the requested paths. The source catalog may be read to compare those targets. JSON output lists those additional reads under `scope.auxiliaryFiles`. Skipped files are not covered by a clean result.
 
 Each result has a confidence value:
 
