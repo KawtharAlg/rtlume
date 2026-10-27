@@ -1,0 +1,46 @@
+{
+  "name": "@kawtharalg/rtlume",
+  "version": "0.1.0-rc.1",
+  "description": "Catch RTL and localization issues before release.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KawtharAlg/rtlume.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KawtharAlg/rtlume/issues"
+  },
+  "homepage": "https://github.com/KawtharAlg/rtlume#readme",
+  "type": "module",
+  "bin": {
+    "rtlume": "./bin/rtlume.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate:plugin": "node ./scripts/validate-plugin.mjs",
+    "check:examples": "node ./bin/rtlume.js scan examples --config rtlume.config.example.json",
+    "demo:json": "node ./bin/rtlume.js scan fixtures/invalid --config rtlume.config.example.json --format json",
+    "demo:sarif": "node ./bin/rtlume.js scan fixtures/invalid --config rtlume.config.example.json --format sarif"
+  },
+  "keywords": [
+    "rtl",
+    "arabic",
+    "localization",
+    "design-system",
+    "design-tokens",
+    "sarif",
+    "ci"
+  ],
+  "license": "MIT",
+  "author": "Kawthar Algaroos",
+  "files": [
+    "bin",
+    "src",
+    "schemas",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ]
+}

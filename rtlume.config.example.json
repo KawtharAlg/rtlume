@@ -1,0 +1,24 @@
+{
+  "$schema": "./schemas/config.schema.json",
+  "rtlLocales": ["ar", "fa", "he", "ur"],
+  "failOn": "error",
+  "maxFileBytes": 1048576,
+  "maxFiles": 5000,
+  "excludeDirs": [".git", "node_modules", "dist", "build", "coverage", "vendor"],
+  "severity": {
+    "CSS001": "error",
+    "CSS002": "warning",
+    "DOC004": "info",
+    "TOK001": "warning"
+  },
+  "ownership": [
+    { "pattern": "examples/design-tokens/**", "owner": "design-system" },
+    { "pattern": "examples/bilingual-web/locales/**", "owner": "localization" }
+  ],
+  "locales": {
+    "source": { "locale": "en", "path": "examples/bilingual-web/locales/en.json" },
+    "targets": [
+      { "locale": "ar", "path": "examples/bilingual-web/locales/ar.json" }
+    ]
+  }
+}
