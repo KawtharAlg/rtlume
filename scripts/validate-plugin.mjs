@@ -35,7 +35,7 @@ if (!fs.existsSync(path.join(root, "LICENSE")) && !manifest?.license) fail("A li
 const skillPath = path.join(root, "skills", "rtlume", "SKILL.md");
 if (!fs.existsSync(skillPath)) fail("skills/rtlume/SKILL.md is missing.");
 else {
-  const skill = fs.readFileSync(skillPath, "utf8");
+  const skill = fs.readFileSync(skillPath, "utf8").replace(/\r\n?/g, "\n");
   if (!/^---\n[\s\S]+?\n---\n/.test(skill)) fail("SKILL.md frontmatter is missing or malformed.");
   if (!/^name:\s*rtlume\s*$/m.test(skill)) fail("SKILL.md name must be rtlume.");
   if (!/^description:\s*\S.+$/m.test(skill)) fail("SKILL.md requires a description.");
